@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/UnityARKitScene/UnityARKitScene.unity
+    guid: c159f2591a9b5c843b0a0442451f78f8
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/UnityParticlePainter/UnityParticlePainter.unity
+    guid: 0327f0aa0142146c291df8203b848257
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/UnityARBallz/UnityARBallz.unity
+    guid: 75972bcfc855b486593ec2ec68da0b81
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/UnityARShadows/UnityARShadows.unity
+    guid: 14d17ec7304f440b48e6b953ba7a5895
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/UnityAROcclusion/UnityAROcclusion.unity
+    guid: 7f026c59fb9d6489ab924c6e0e119760
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/ARKitRemote/UnityARKitRemote.unity
+    guid: 3ed73c0c9d4b76a418a0541c0cefd3ac
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/FocusSquare/FocusSquareScene.unity
+    guid: 3c9ef824a7b95400bade362484e9b6af
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/FaceTracking/FaceAnchorScene.unity
+    guid: 46e299c2ec1244fbaa1b9b14e2ab198a
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/FaceTracking/FaceMeshScene.unity
+    guid: e95b28d2a95b34b868e407dc86a3e6d2
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/FaceTracking/FaceBlendshapeScene.unity
+    guid: 74c2619dd419d4704bba49146f77161d
+  - enabled: 0
+    path: Assets/UnityARKitPlugin/Examples/FaceTracking/FaceDirectionalLightEstimate.unity
+    guid: 360fd35caee4f4e069485021a27c0b06
