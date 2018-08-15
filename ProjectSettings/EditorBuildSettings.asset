@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/UnityARKitPlugin/Examples/UnityAROcclusion/UnityAROcclusion.unity
     guid: 7f026c59fb9d6489ab924c6e0e119760
-  - enabled: 0
+  - enabled: 1
     path: Assets/UnityARKitPlugin/ARKitRemote/UnityARKitRemote.unity
     guid: 3ed73c0c9d4b76a418a0541c0cefd3ac
   - enabled: 0

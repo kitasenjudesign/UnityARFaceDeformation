@@ -32,6 +32,9 @@ namespace UnityEngine.XR.iOS
 			if (m_session == null) {	
 				GUI.Box (new Rect ((Screen.width / 2) - 200, (Screen.height / 2), 400, 50), "Waiting for editor connection...");
 			}
+			if (GUI.Button(new Rect(10, 10, 350, 150),"Quit")){
+				Application.Quit();
+			}			
 		}
 
 		void HandleEditorMessage(MessageEventArgs mea)
