@@ -63,7 +63,7 @@ Shader "Face/FaceDeformationSmile"
 		float3 vv = v;
 
 		//to polar
-		vv.y += - (sharpCol.x-0.5) * _Ratio;
+		vv.y += (sharpCol.x-0.5) * sin(_Time.z) * _Ratio;
 
 		OUT.vertex = UnityObjectToClipPos(vv);
 		OUT.texcoord = IN.texcoord;

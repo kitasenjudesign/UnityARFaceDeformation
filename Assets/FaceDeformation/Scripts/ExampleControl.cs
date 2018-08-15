@@ -19,6 +19,7 @@ public class ExampleControl : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Space)){
             
             _count++;
+            
             _count = _count%_materials.Length;
             _meshManager.SetFaceMat(_materials[_count]);
 

@@ -5,7 +5,6 @@ using System.Text;
  
 public class FaceIndices {
 
-
 	private static int[] addingIndices = new int[]{       
 			//左目
 			1074 , 1064 , 1063 ,

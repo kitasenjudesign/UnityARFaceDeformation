@@ -64,7 +64,7 @@ Shader "Face/FaceDeformationSharp"
 
 		//to polar
 		float amp = length(vv);
-		float radX = (-atan2(vv.z, vv.x) + 3.1415 * 0.5); //+ vv.y * sin(_count) * nejireX;//横方向の角度
+		float radX = (-atan2(vv.z, vv.x) + 3.1415 * 0.5);
 		float radY = asin(vv.y / amp);
 
 		float rr = step(0.5,sharpCol.x);
