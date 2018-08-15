@@ -5,3 +5,4 @@
 Sample code for deforming the face using [Unity-ARKit-Plugin](https://bitbucket.org/Unity-Technologies/unity-arkit-plugin).
 I used it for [JIDO-RHYTHM](http://kitasenjudesign.com/jido-rhythm/) app.
 
+![sample01](Assets/Images/01.gif)
