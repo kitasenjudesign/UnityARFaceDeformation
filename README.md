@@ -5,8 +5,11 @@
 Sample code for deforming the face using [Unity-ARKit-Plugin](https://bitbucket.org/Unity-Technologies/unity-arkit-plugin) and Face Tracking.
 I used it for [JIDO-RHYTHM](http://kitasenjudesign.com/jido-rhythm/) app.
 
-
+## examples
 ![sample01](./Images/01.gif)
 ![sample02](./Images/02.gif)
 ![sample03](./Images/03.gif)
 ![sample04](./Images/04.gif)
+
+## license
+[MIT](./LICENSE.md)
