@@ -44,7 +44,7 @@ public class FaceDuplicator : MonoBehaviour {
 		
 		_faceList[_counter%len].velocity.x = 0.008f * Mathf.Cos(_counter/7f);
 		_faceList[_counter%len].velocity.y = 0.008f * Mathf.Sin(_counter/7f);
-		_faceList[_counter%len].velocity.z -= 0.0002f;
+		_faceList[_counter%len].velocity.z -= 0.0001f;
 		_faceList[_counter%len].DrawTexture(_renderTexture);
 		_faceList[_counter%len].SetPosition( 
 			_faceManager.transform.position,
