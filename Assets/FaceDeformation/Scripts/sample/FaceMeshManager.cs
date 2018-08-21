@@ -8,12 +8,15 @@ public class FaceMeshManager : MonoBehaviour {
 	[SerializeField] private MeshFilter meshFilter;
 	[SerializeField] private MeshRenderer _meshRenderer;
 	private UnityARSessionNativeInterface m_session;
-	private Mesh faceMesh;
-
+	public Mesh faceMesh;
 	[SerializeField] private UnityARVideo _arVideo;
 	private Material _faceMat;
-	
 	private Matrix4x4 _faceMatrix;
+
+    public Matrix4x4 faceMatrix
+    {
+        get{return _faceMatrix;}
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +42,6 @@ public class FaceMeshManager : MonoBehaviour {
 
 		}
 
-
 	}
 
 	void FaceAdded (ARFaceAnchor anchorData)
@@ -58,6 +60,7 @@ public class FaceMeshManager : MonoBehaviour {
 		faceMesh.RecalculateBounds();
 		faceMesh.RecalculateNormals();
 		meshFilter.mesh = faceMesh;
+		
 	}
 
 	void FaceUpdated (ARFaceAnchor anchorData)
