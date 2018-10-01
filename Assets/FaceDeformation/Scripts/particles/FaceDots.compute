@@ -1,0 +1,101 @@
+#pragma kernel MainCS
+
+#include "UnityCG.cginc"
+#include "./CGINC/SimplexNoise3Db.cginc"
+
+
+// スレッドグループのスレッドサイズ
+#define ThreadBlockSize 256
+// アニメーションテーブルのサイズ
+#define AnimationLength 16
+
+#define EPSILON 1e-3
+
+// data
+struct DotData
+{
+    // 座標
+    float3 position;
+    float3 velocity;
+    float3 scale;
+    float4 color;
+    float3 basePos;
+    //float3 rotation;
+    float2 uv;
+    float time;
+};
+
+// ドカベンロゴのバッファ
+RWStructuredBuffer<DotData> _CubeDataBuffer;//_DokabenDataBuffer;
+float _DeltaTime;
+float4  _Positions[3000];
+float4x4 _modelMatrix;
+
+float rand(float3 co)
+{
+    return frac(sin(dot(co.xyz, float3(12.9898, 78.233, 45.5432))) * 43758.5453);
+}
+
+float3 curlNoise(float3 coord)
+{
+    float3 dx = float3(EPSILON, 0.0, 0.0);
+    float3 dy = float3(0.0, EPSILON, 0.0);
+    float3 dz = float3(0.0, 0.0, EPSILON);
+
+    float3 dpdx0 = simplexNoise(coord - dx);
+    float3 dpdx1 = simplexNoise(coord + dx);
+    float3 dpdy0 = simplexNoise(coord - dy);
+    float3 dpdy1 = simplexNoise(coord + dy);
+    float3 dpdz0 = simplexNoise(coord - dz);
+    float3 dpdz1 = simplexNoise(coord + dz);
+
+    float x = dpdy1.z - dpdy0.z + dpdz1.y - dpdz0.y;
+    float y = dpdz1.x - dpdz0.x + dpdx1.z - dpdx0.z;
+    float z = dpdx1.y - dpdx0.y + dpdy1.x - dpdy0.x;
+
+    return float3(x, y, z) / EPSILON * 2.0;
+}
+			
+float rand(float2 co)
+{
+    return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
+}
+
+
+[numthreads(ThreadBlockSize, 1, 1)]
+void MainCS(uint3 id : SV_DispatchThreadID)
+{
+    // インデックス取得
+    const unsigned int index = id.x;
+
+    float3 pos = _CubeDataBuffer[index].position;
+
+   _CubeDataBuffer[index].time += _DeltaTime;
+
+    if( _CubeDataBuffer[index].time > 2.0 ){
+        //0.3;
+        _CubeDataBuffer[index].time = 0;
+        int ii = index % 3000;
+        float3 startPos = _Positions[ii].xyz;
+
+        startPos.x += (rand(startPos + _Time.z*100)-0.5) * 0.03;
+        startPos.y += (rand(startPos + _Time.z*70)-0.5) * 0.03;
+        startPos.z += (rand(startPos + _Time.z*60)-0.5) * 0.03;
+        
+        _CubeDataBuffer[index].position = startPos;///_CubeDataBuffer[index].basePos;
+        _CubeDataBuffer[index].basePos = startPos;
+    }
+
+    float rr = 1.0 - ( _CubeDataBuffer[index].time / 2.0 );
+    _CubeDataBuffer[index].scale.x = rr;
+    _CubeDataBuffer[index].scale.y = rr;
+    _CubeDataBuffer[index].scale.z = rr;
+   
+
+    //_CubeDataBuffer[index].velocity *= 0.99;//force * 0.001;
+    _CubeDataBuffer[index].velocity = curlNoise( pos*7.0 + _Time.x ) * 0.0002;
+    _CubeDataBuffer[index].velocity.z = -0.002-abs(_CubeDataBuffer[index].velocity.z);
+    //_CubeDataBuffer[index].rotation.x += 0.5;
+    _CubeDataBuffer[index].position += _CubeDataBuffer[index].velocity;
+
+}
