@@ -30,6 +30,10 @@ RWStructuredBuffer<DotData> _CubeDataBuffer;//_DokabenDataBuffer;
 float _DeltaTime;
 float4  _Positions[3000];
 float4x4 _modelMatrix;
+float4x4 _viewMatrix;
+float4x4 _projMatrix;
+
+sampler2D _Tex; // テクスチャ
 
 float rand(float3 co)
 {
@@ -82,20 +86,39 @@ void MainCS(uint3 id : SV_DispatchThreadID)
         startPos.y += (rand(startPos + _Time.z*70)-0.5) * 0.03;
         startPos.z += (rand(startPos + _Time.z*60)-0.5) * 0.03;
         
+        startPos = mul(_modelMatrix, float4(startPos.xyz,1)).xyz;
+
+        float4 faceWorldPos = float4(startPos.xyz,1.0);
+        //float4 faceProjPos = mul( UNITY_MATRIX_VP, faceWorldPos );
+        float4 faceViewPos = mul( _viewMatrix, faceWorldPos );
+        float4 faceProjPos = mul( _projMatrix, faceViewPos );
+
+        float4 faceScreenPos = ComputeScreenPos(faceProjPos);
+        float2 uvv = faceScreenPos.xy/faceScreenPos.w;
+		uvv.y = 1.0 - uvv.y;
+
+        fixed4 cc = tex2Dlod(_Tex, float4(uvv,0,0) );
+        _CubeDataBuffer[index].color = fixed4(cc.rgb,1.0);//tex2D(_Tex, uvv );
+        
+
         _CubeDataBuffer[index].position = startPos;///_CubeDataBuffer[index].basePos;
         _CubeDataBuffer[index].basePos = startPos;
     }
 
     float rr = 1.0 - ( _CubeDataBuffer[index].time / 2.0 );
+    rr = pow(rr,2.0);
     _CubeDataBuffer[index].scale.x = rr;
     _CubeDataBuffer[index].scale.y = rr;
     _CubeDataBuffer[index].scale.z = rr;
    
-
+    float nn = 1.0 - length(_CubeDataBuffer[index].color.xyz) + 0.1;
     //_CubeDataBuffer[index].velocity *= 0.99;//force * 0.001;
-    _CubeDataBuffer[index].velocity = curlNoise( pos*7.0 + _Time.x ) * 0.0002;
-    _CubeDataBuffer[index].velocity.z = -0.002-abs(_CubeDataBuffer[index].velocity.z);
-    //_CubeDataBuffer[index].rotation.x += 0.5;
+    _CubeDataBuffer[index].velocity = curlNoise( pos*7.0 + _Time.x ) * 0.0001;
+    _CubeDataBuffer[index].velocity.y += 0.001;
+    _CubeDataBuffer[index].velocity.z = -0.01*nn-abs(_CubeDataBuffer[index].velocity.z);
+
+    //_CubeDataBuffer[index].velocity = float3(0,0,-0.003);
+
     _CubeDataBuffer[index].position += _CubeDataBuffer[index].velocity;
 
 }

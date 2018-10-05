@@ -34,7 +34,7 @@ public class FaceDots : MonoBehaviour{
     [SerializeField] ComputeShader _computeShader;
     [SerializeField] private Material _material;
     [SerializeField] private FaceMeshManager _faceManager;
-
+    [SerializeField] private RenderTexture _tex;
     private float _time = 0;
 
     private Vector4[] _positions;
@@ -129,7 +129,12 @@ public class FaceDots : MonoBehaviour{
             // ComputeShader
 
             int kernelId = _computeShader.FindKernel("MainCS");
+            _computeShader.SetTexture(kernelId, "_Tex", _tex);
+
+            _computeShader.SetMatrix("_viewMatrix", Camera.main.worldToCameraMatrix );
+            _computeShader.SetMatrix("_projMatrix", Camera.main.projectionMatrix );
             _computeShader.SetMatrix("_modelMatrix", transform.localToWorldMatrix );
+            
             _computeShader.SetFloat("_DeltaTime", Time.deltaTime);
             _computeShader.SetVectorArray("_Positions", _positions);
             _computeShader.SetBuffer(kernelId, "_CubeDataBuffer", _cubeDataBuffer);

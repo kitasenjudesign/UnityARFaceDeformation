@@ -25,7 +25,6 @@ public class YCbCrToRGB : MonoBehaviour {
 
     void Update(){
 
-
 		_mat.SetMatrix("_DisplayTransform", _unityArVideo._displayTransform);
         _mat.SetTexture("_textureY",    _unityArVideo._videoTextureY);
         _mat.SetTexture("_textureCbCr", _unityArVideo._videoTextureCbCr);

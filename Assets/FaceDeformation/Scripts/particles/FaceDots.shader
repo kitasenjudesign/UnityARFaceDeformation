@@ -59,7 +59,9 @@ Shader "FaceDot"
 		float _Scale;
 		float4 _Num;
 		float3 _ObjectScale; // Boidオブジェクトのスケール
+		
 		float4x4 _modelMatrix;
+
 
 		// オイラー角（ラジアン）を回転行列に変換
 		float4x4 eulerAnglesToRotationMatrix(float3 angles)
@@ -102,22 +104,23 @@ Shader "FaceDot"
 			object2world = mul(rotMatrix, object2world);// 行列に回転を適用
 			object2world._14_24_34 += pos.xyz;// 行列に位置（平行移動）を適用
 			
-			object2world = mul(_modelMatrix, object2world);//親のモデルマトリックスも噛ませます
+			//object2world = mul(_modelMatrix, object2world);//親のモデルマトリックスも噛ませます
 						
 			v.vertex = mul(object2world, v.vertex);
 			// 法線を座標変換
 			v.normal = normalize(mul(object2world, v.normal));
 
-			float4 faceWorldPos = mul(_modelMatrix, float4(cubeData.basePos.xyz,1));
+			float4 faceWorldPos = float4(cubeData.basePos.xyz,1);//mul(_modelMatrix, float4(cubeData.basePos.xyz,1));
 			//float4 faceWorldPos = mul(object2world, float4(0,0,0,1.0));
 
 			float4 faceProjPos = mul( UNITY_MATRIX_VP, faceWorldPos );
 			float4 faceScreenPos = ComputeScreenPos(faceProjPos);
 			float2 uvv = faceScreenPos.xy/faceScreenPos.w;
 			
+			
 
 			//ここで色を渡している
-			o.col = float4(uvv.xy,0,0);//uv
+			o.col = float4(cubeData.color.rgb,0);//uv
 			//o.col = float4(_CubeDataBuffer[unity_InstanceID].uv,0,0);//uv
 
 			#endif
@@ -134,7 +137,7 @@ Shader "FaceDot"
 			//720
 			
 			fixed4 c1 = tex2D (_MainTex, IN.col.xy );// + r );
-			o.Albedo = c1.rgb;//IN.col.xyz;//c.rgb;// * IN.color.xyz;
+			o.Albedo = IN.col.xyz;//c1.rgb;//IN.col.xyz;//c.rgb;// * IN.color.xyz;
 			o.Metallic = _Metallic;
 			//o.Emission = IN.col.xyz*0.3;
 			o.Smoothness = _Glossiness;
