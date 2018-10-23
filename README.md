@@ -12,6 +12,8 @@ I used it for [JIDO-RHYTHM](http://kitasenjudesign.com/jido-rhythm/) app.
 ![sample03](./Images/03.gif)
 ![sample04](./Images/04.gif)
 ![sample04](./Images/05.gif)
+![particle](./Images/particle.gif)
+
 
 ## License
 [MIT](./LICENSE)
