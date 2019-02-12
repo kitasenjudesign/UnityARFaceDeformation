@@ -25,7 +25,7 @@ public class FaceDots : MonoBehaviour{
     [SerializeField] float width;
     [SerializeField,Range(0.001f,1f)] float _size;//_Size ("_Size", Range(0.04,0.1)) = 0.04
 
-    int ThreadBlockSize = 256;
+    int ThreadBlockSize = 64;//256;
 
     ComputeBuffer _cubeDataBuffer;
     ComputeBuffer _argsBuffer;

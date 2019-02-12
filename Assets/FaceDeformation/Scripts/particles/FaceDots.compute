@@ -5,9 +5,7 @@
 
 
 // スレッドグループのスレッドサイズ
-#define ThreadBlockSize 256
-// アニメーションテーブルのサイズ
-#define AnimationLength 16
+#define ThreadBlockSize 64 //256
 
 #define EPSILON 1e-3
 
@@ -25,7 +23,7 @@ struct DotData
     float time;
 };
 
-// ドカベンロゴのバッファ
+// 
 RWStructuredBuffer<DotData> _CubeDataBuffer;//_DokabenDataBuffer;
 float _DeltaTime;
 float4  _Positions[3000];
@@ -33,7 +31,7 @@ float4x4 _modelMatrix;
 float4x4 _viewMatrix;
 float4x4 _projMatrix;
 
-sampler2D _Tex; // テクスチャ
+sampler2D _Tex;
 
 float rand(float3 co)
 {
